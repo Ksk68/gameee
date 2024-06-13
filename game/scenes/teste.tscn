@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://c4iynrb2pcctk"]
+
+[ext_resource type="Texture2D" uid="uid://bmqgtua8vgu6t" path="res://Captura de ecrã 2024-02-29 214106.png" id="1_3j8gf"]
+[ext_resource type="Script" path="res://scripts/andar.gd" id="1_618iy"]
+[ext_resource type="PackedScene" uid="uid://cbyrone8fkvtt" path="res://3d models/machado.glb" id="2_dg22q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q71lx"]
+albedo_texture = ExtResource("1_3j8gf")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_40svj"]
+load_path = "res://.godot/imported/Captura de ecrã 2024-02-29 214307.png-2409c6c3a4443ed3200d04eac9fe0439.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ypiwj"]
+albedo_color = Color(0, 0, 0, 1)
+albedo_texture = SubResource("CompressedTexture2D_40svj")
+
+[sub_resource type="BoxMesh" id="BoxMesh_j6f4p"]
+material = SubResource("StandardMaterial3D_ypiwj")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_03nfy"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2l4yb"]
+
+[node name="teste" type="Node3D"]
+
+[node name="chao" type="MeshInstance3D" parent="."]
+transform = Transform3D(184.445, 0, 0, 0, 0.2, 0, 0, 0, 133.417, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_q71lx")
+mesh = SubResource("BoxMesh_j6f4p")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="chao"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chao/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_03nfy")
+
+[node name="player" type="CharacterBody3D" parent="."]
+script = ExtResource("1_618iy")
+
+[node name="colisao" type="CollisionShape3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21381, 0)
+shape = SubResource("CapsuleShape3D_2l4yb")
+
+[node name="head" type="Node3D" parent="player"]
+
+[node name="vertical" type="Node3D" parent="player/head"]
+
+[node name="Camera3D" type="Camera3D" parent="player/head/vertical"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.021122, 1.49471, -0.037972)
+
+[node name="machado" parent="player/head/vertical" instance=ExtResource("2_dg22q")]
+transform = Transform3D(0.00168583, 0.0699797, 0, -0.0374599, 0.000902418, -0.0591265, -0.0591094, 0.00142396, 0.0374707, 0.306124, 1.5592, -1.12132)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.714131, 0.700012, 0, -0.700012, 0.714131, 0, 4.13618, 9.55558)
