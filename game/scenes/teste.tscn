@@ -1,14 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4iynrb2pcctk"]
+[gd_scene load_steps=11 format=3 uid="uid://c4iynrb2pcctk"]
 
 [ext_resource type="Texture2D" uid="uid://bmqgtua8vgu6t" path="res://Captura de ecrã 2024-02-29 214106.png" id="1_3j8gf"]
 [ext_resource type="Script" path="res://scripts/andar.gd" id="1_618iy"]
-[ext_resource type="PackedScene" uid="uid://cbyrone8fkvtt" path="res://3d models/machado.glb" id="2_dg22q"]
+[ext_resource type="ArrayMesh" uid="uid://d2i88jg14lpln" path="res://3d models/glock 17.obj" id="3_y2j7d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q71lx"]
 albedo_texture = ExtResource("1_3j8gf")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_40svj"]
-load_path = "res://.godot/imported/Captura de ecrã 2024-02-29 214307.png-2409c6c3a4443ed3200d04eac9fe0439.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ypiwj"]
 albedo_color = Color(0, 0, 0, 1)
@@ -21,6 +20,11 @@ material = SubResource("StandardMaterial3D_ypiwj")
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2l4yb"]
+
+[sub_resource type="Environment" id="Environment_rjk7t"]
+background_mode = 2
+reflected_light_source = 2
+adjustment_enabled = true
 
 [node name="teste" type="Node3D"]
 
@@ -46,10 +50,16 @@ shape = SubResource("CapsuleShape3D_2l4yb")
 [node name="vertical" type="Node3D" parent="player/head"]
 
 [node name="Camera3D" type="Camera3D" parent="player/head/vertical"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.021122, 1.49471, -0.037972)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0127156, 1.91241, 0.133484)
+fov = 90.0
 
-[node name="machado" parent="player/head/vertical" instance=ExtResource("2_dg22q")]
-transform = Transform3D(0.00168583, 0.0699797, 0, -0.0374599, 0.000902418, -0.0591265, -0.0591094, 0.00142396, 0.0374707, 0.306124, 1.5592, -1.12132)
+[node name="Node3D" type="Node3D" parent="player/head/vertical"]
+transform = Transform3D(-0.3, 0, 4.52987e-08, 0, 0.3, 0, -4.52987e-08, 0, -0.3, 0.623074, 1.38341, -1.46683)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.714131, 0.700012, 0, -0.700012, 0.714131, 0, 4.13618, 9.55558)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="player/head/vertical/Node3D"]
+cast_shadow = 0
+mesh = ExtResource("3_y2j7d")
+skeleton = NodePath("../..")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rjk7t")
